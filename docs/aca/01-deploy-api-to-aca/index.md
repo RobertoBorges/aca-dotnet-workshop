@@ -90,7 +90,7 @@ We will be using Azure CLI to deploy the Web API Backend to ACA as shown in the 
     # Upgrade Azure CLI
     az upgrade
     # Login to Azure
-    az login 
+    az login --use-device-code
     # Only required if you have multiple subscriptions
     az account set --subscription <name or id>
     # Install/Upgrade Azure Container Apps Extension
@@ -99,28 +99,28 @@ We will be using Azure CLI to deploy the Web API Backend to ACA as shown in the 
 
 - Define the variables below in the PowerShell console to use them across the different modules in the workshop. You should change the values of those variables to be able to create the resources successfully. Some of those variables should be unique across all Azure subscriptions such as Azure Container Registry name. Remember to replace the place holders with your own values:
     ```shell
-    $RESOURCE_GROUP="tasks-tracker-rg"
-    $LOCATION="eastus"
-    $ENVIRONMENT="tasks-tracker-containerapps-env"
-    $WORKSPACE_NAME="<replace this with your unique app log analytics workspace name>"
-    $APPINSIGHTS_NAME="<replace this with your unique app insights name>"
-    $BACKEND_API_NAME="tasksmanager-backend-api"
-    $ACR_NAME="<replace this with your unique acr name>"
+    export RESOURCE_GROUP="tasks-tracker-rg"
+    export LOCATION="eastus"
+    export ENVIRONMENT="tasks-tracker-containerapps-env"
+    export WORKSPACE_NAME="<replace this with your unique app log analytics workspace name>"
+    export APPINSIGHTS_NAME="<replace this with your unique app insights name>"
+    export BACKEND_API_NAME="tasksmanager-backend-api"
+    export ACR_NAME="<replace this with your unique acr name>"
     ```
 - Create a `resource group` to organize the services related to the application, run the below command:
     ```shell
-    az group create `
-    --name $RESOURCE_GROUP `
+    az group create \
+    --name $RESOURCE_GROUP \
     --location "$LOCATION"
     ```
 
 - Create an Azure Container Registry (ACR) instance in the resource group to store images of all Microservices we are going to build during this workshop. Make sure that you set the `admin-enabled` flag to true in order to seamlessly authenticate the Azure container app when trying to create the container app using the image stored in ACR
 
     ```shell
-    az acr create `
-    --resource-group $RESOURCE_GROUP `
-    --name $ACR_NAME `
-    --sku Basic `
+    az acr create \
+    --resource-group $RESOURCE_GROUP \
+    --name $ACR_NAME \
+    --sku Basic \
     --admin-enabled true
     ```
 !!! note
@@ -129,19 +129,19 @@ We will be using Azure CLI to deploy the Web API Backend to ACA as shown in the 
 - Create an Azure Log Analytics Workspace which will provide a common place to store the system and application log data from all container apps running in the environment. Each environment should have its own Log Analytics Workspace. To create it, run the command below:
     ```shell
     # create the log analytics workspace
-    az monitor log-analytics workspace create `
-    --resource-group $RESOURCE_GROUP `
+    az monitor log-analytics workspace create \
+    --resource-group $RESOURCE_GROUP \
     --workspace-name $WORKSPACE_NAME
 
     # retrieve workspace ID
-    $WORKSPACE_ID=az monitor log-analytics workspace show --query customerId `
-    -g $RESOURCE_GROUP `
-    -n $WORKSPACE_NAME -o tsv
+    export WORKSPACE_ID=$(az monitor log-analytics workspace show --query customerId \
+    -g $RESOURCE_GROUP \
+    -n $WORKSPACE_NAME -o tsv)
 
     # retrieve workspace secret
-    $WORKSPACE_SECRET=az monitor log-analytics workspace get-shared-keys --query primarySharedKey `
-    -g $RESOURCE_GROUP `
-    -n $WORKSPACE_NAME -o tsv
+    export WORKSPACE_SECRET=$(az monitor log-analytics workspace get-shared-keys --query primarySharedKey \
+    -g $RESOURCE_GROUP \
+    -n $WORKSPACE_NAME -o tsv)
     ```
 - Create an [Application Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview?tabs=net) Instance which will be used mainly for [distributed tracing](https://learn.microsoft.com/en-us/azure/azure-monitor/app/distributed-tracing) between different container apps within the ACA environment to provide searching for and visualizing an end-to-end flow of a given execution or transaction. To create it, run the command below:
     ```shell
@@ -149,27 +149,26 @@ We will be using Azure CLI to deploy the Web API Backend to ACA as shown in the 
     az extension add -n application-insights
     
     # Create application-insights instance
-    az monitor app-insights component create `
-    -g $RESOURCE_GROUP `
-    -l $LOCATION `
-    --app $APPINSIGHTS_NAME `
+    az monitor app-insights component create \
+    -g $RESOURCE_GROUP \
+    -l $LOCATION \
+    --app $APPINSIGHTS_NAME \
     --workspace $WORKSPACE_NAME
     
     # Get Application Insights Instrumentation Key
-    $APPINSIGHTS_INSTRUMENTATIONKEY=($(az monitor app-insights component show `
-    --app $APPINSIGHTS_NAME `
-    -g $RESOURCE_GROUP)  | ConvertFrom-Json).instrumentationKey
+    export APPINSIGHTS_INSTRUMENTATIONKEY=$(az monitor app-insights component show \
+    --app $APPINSIGHTS_NAME -g $RESOURCE_GROUP | jq -r '.instrumentationKey')
     ```
 
 - Now we will create an Azure Container Apps Environment. As a reminder of the different ACA component [check this link in the workshop introduction](../../aca/00-workshop-intro/1-aca-core-components.md). The ACA environment acts as a secure boundary around a group of container apps that we are going to provision during this workshop. To create it, run the below command:
     ```shell
     # Create the ACA environment
-    az containerapp env create `
-    --name $ENVIRONMENT `
-    --resource-group $RESOURCE_GROUP `
-    --logs-workspace-id $WORKSPACE_ID `
-    --logs-workspace-key $WORKSPACE_SECRET `
-    --dapr-instrumentation-key $APPINSIGHTS_INSTRUMENTATIONKEY `
+    az containerapp env create \
+    --name $ENVIRONMENT \
+    --resource-group $RESOURCE_GROUP \
+    --logs-workspace-id $WORKSPACE_ID \
+    --logs-workspace-key $WORKSPACE_SECRET \
+    --dapr-instrumentation-key $APPINSIGHTS_INSTRUMENTATIONKEY \
     --location $LOCATION
     ```
 ??? tip "Want to learn what above command does?"
@@ -189,17 +188,17 @@ We will be using Azure CLI to deploy the Web API Backend to ACA as shown in the 
 -  The last step here is to create and deploy the Web API to ACA following the below command. Remember to replace the place holders with your own values:
 
     ```shell
-    az containerapp create `
-    --name $BACKEND_API_NAME  `
-    --resource-group $RESOURCE_GROUP `
-    --environment $ENVIRONMENT `
-    --image "$ACR_NAME.azurecr.io/tasksmanager/$BACKEND_API_NAME" `
-    --registry-server "$ACR_NAME.azurecr.io" `
-    --target-port [port number that was generated when you created your docker file in vs code] `
-    --ingress 'external' `
-    --min-replicas 1 `
-    --max-replicas 1 `
-    --cpu 0.25 --memory 0.5Gi `
+    az containerapp create \
+    --name $BACKEND_API_NAME  \
+    --resource-group $RESOURCE_GROUP \
+    --environment $ENVIRONMENT \
+    --image "$ACR_NAME.azurecr.io/tasksmanager/$BACKEND_API_NAME" \
+    --registry-server "$ACR_NAME.azurecr.io" \
+    --target-port [port number that was generated when you created your docker file in vs code] \
+    --ingress 'external' \
+    --min-replicas 1 \
+    --max-replicas 1 \
+    --cpu 0.25 --memory 0.5Gi \
     --query configuration.ingress.fqdn
     ```
 ??? tip "Want to learn what above command does?"

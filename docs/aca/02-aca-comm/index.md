@@ -160,18 +160,18 @@ Once this step is completed you can verify the results by going to the Azure por
 - Next, we will create and deploy the Web App to ACA using the following command. Remember to replace the placeholders with your own values:
 
 ```powershell
-az containerapp create `
---name "$FRONTEND_WEBAPP_NAME"  `
---resource-group $RESOURCE_GROUP `
---environment $ENVIRONMENT `
---image "$ACR_NAME.azurecr.io/tasksmanager/$FRONTEND_WEBAPP_NAME" `
---registry-server "$ACR_NAME.azurecr.io" `
---env-vars "BackendApiConfig__BaseUrlExternalHttp=<url to your backend api goes here. You can find this on the azure portal overview tab. Look for the Application url property there.>/" `
---target-port <port number that was generated when you created your docker file in vs code for your frontend application> `
---ingress 'external' `
---min-replicas 1 `
---max-replicas 1 `
---cpu 0.25 --memory 0.5Gi `
+az containerapp create \
+--name "$FRONTEND_WEBAPP_NAME"  \
+--resource-group $RESOURCE_GROUP \
+--environment $ENVIRONMENT \
+--image "$ACR_NAME.azurecr.io/tasksmanager/$FRONTEND_WEBAPP_NAME" \
+--registry-server "$ACR_NAME.azurecr.io" \
+--env-vars "BackendApiConfig__BaseUrlExternalHttp=<url to your backend api goes here. You can find this on the azure portal overview tab. Look for the Application url property there.>/" \
+--target-port <port number that was generated when you created your docker file in vs code for your frontend application> \
+--ingress 'external' \
+--min-replicas 1 \
+--max-replicas 1 \
+--cpu 0.25 --memory 0.5Gi \
 --query configuration.ingress.fqdn
 ```
 !!! tip    
@@ -187,10 +187,10 @@ So far the Frontend App is sending HTTP requests to publicly exposed Web API whi
 - To change the settings of the Backend API, execute the following command:
 
     ```powershell
-    az containerapp ingress enable `
-    --name  $BACKEND_API_NAME  `
-    --resource-group  $RESOURCE_GROUP `
-    --target-port [port number that was generated when you created your docker file in vs code for your backend application] `
+    az containerapp ingress enable \
+    --name  $BACKEND_API_NAME  \
+    --resource-group  $RESOURCE_GROUP \
+    --target-port [port number that was generated when you created your docker file in vs code for your backend application] \
     --type "internal"
     ```
 
@@ -205,9 +205,9 @@ So far the Frontend App is sending HTTP requests to publicly exposed Web API whi
 - Now we will need to update the Frontend Web App environment variable to point to the internal backend Web API FQDN. The last thing we need to do here is to update the Frontend WebApp environment variable named `BackendApiConfig_BaseUrlExternalHttp` with the new value of the internal Backend Web API base URL, to do so we need to update the Web App container app and it will create a new revision implicitly (more about revisions in the upcoming modules). The following command will update the container app with the changes:
 
     ```powershell
-    az containerapp update `
-    --name "$FRONTEND_WEBAPP_NAME"  `
-    --resource-group $RESOURCE_GROUP `
+    az containerapp update \
+    --name "$FRONTEND_WEBAPP_NAME"  \
+    --resource-group $RESOURCE_GROUP \
     --set-env-vars "BackendApiConfig__BaseUrlExternalHttp=https://tasksmanager-backend-api.internal.[Environment unique identifier].eastus.azurecontainerapps.io"
     ```
 !!! success
