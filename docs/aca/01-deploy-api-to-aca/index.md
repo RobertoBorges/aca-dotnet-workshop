@@ -99,13 +99,13 @@ We will be using Azure CLI to deploy the Web API Backend to ACA as shown in the 
 
 - Define the variables below in the PowerShell console to use them across the different modules in the workshop. You should change the values of those variables to be able to create the resources successfully. Some of those variables should be unique across all Azure subscriptions such as Azure Container Registry name. Remember to replace the place holders with your own values:
     ```shell
-    RESOURCE_GROUP="tasks-tracker-rg"
-    LOCATION="eastus"
-    ENVIRONMENT="tasks-tracker-containerapps-env"
-    WORKSPACE_NAME="<replace this with your unique app log analytics workspace name>"
-    APPINSIGHTS_NAME="<replace this with your unique app insights name>"
-    BACKEND_API_NAME="tasksmanager-backend-api"
-    ACR_NAME="<replace this with your unique acr name>"
+    export RESOURCE_GROUP="tasks-tracker-rg"
+    export LOCATION="eastus"
+    export ENVIRONMENT="tasks-tracker-containerapps-env"
+    export WORKSPACE_NAME="<replace this with your unique app log analytics workspace name>"
+    export APPINSIGHTS_NAME="<replace this with your unique app insights name>"
+    export BACKEND_API_NAME="tasksmanager-backend-api"
+    export ACR_NAME="<replace this with your unique acr name>"
     ```
 - Create a `resource group` to organize the services related to the application, run the below command:
     ```shell
@@ -139,7 +139,7 @@ We will be using Azure CLI to deploy the Web API Backend to ACA as shown in the 
     -n $WORKSPACE_NAME -o tsv)
 
     # retrieve workspace secret
-    export WORKSPACE_SECRET=$(az monitor log-analytics workspace get-shared-keys --query primarySharedKey `
+    export WORKSPACE_SECRET=$(az monitor log-analytics workspace get-shared-keys --query primarySharedKey \
     -g $RESOURCE_GROUP \
     -n $WORKSPACE_NAME -o tsv)
     ```
