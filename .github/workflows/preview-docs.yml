@@ -40,7 +40,7 @@ jobs:
           make build-docs-website
       - name: Release preview to branch
         if: "! github.event.pull_request.head.repo.fork "
-        uses: rossjrw/pr-preview-action@v1
+        uses: RobertoBorges/pr-preview-action@v1
         with:
           source-dir: ./dist/
           preview-branch: gh-pages
