@@ -193,7 +193,7 @@ We will be using Azure CLI to deploy the Web API Backend to ACA as shown in the 
     --name $BACKEND_API_NAME  `
     --resource-group $RESOURCE_GROUP `
     --environment $ENVIRONMENT `
-    --image "$ACR_NAME.azurecr.io/tasksmanager/$BACKEND_API_NAME" `
+    --image "$ACR_NAME.azurecr.io/tasksmanager/$BACKEND_API_NAME:latest" `
     --registry-server "$ACR_NAME.azurecr.io" `
     --target-port [port number that was generated when you created your docker file in vs code] `
     --ingress 'external' `
