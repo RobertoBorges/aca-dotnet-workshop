@@ -9,11 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // builder.Services.AddSingleton<DaprClient>(_ => new DaprClientBuilder().Build());
 
-//builder.Services.AddSingleton<ITasksManager, FakeTasksManager>();
+builder.Services.AddSingleton<ITasksManager, FakeTasksManager>();
 
-builder.Services.AddDaprClient();
+//builder.Services.AddDaprClient();
 
-builder.Services.AddSingleton<ITasksManager, TasksStoreManager>();
+//builder.Services.AddSingleton<ITasksManager, TasksStoreManager>();
 
 builder.Services.AddControllers();
 
