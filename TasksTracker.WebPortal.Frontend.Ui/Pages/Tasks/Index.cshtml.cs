@@ -27,8 +27,8 @@ namespace TasksTracker.WebPortal.Frontend.Ui.Pages.Tasks
             TasksCreatedBy = Request.Cookies["TasksCreatedByCookie"];
 
             //Invoke via internal URL (Not Dapr)
-            //var httpClient = _httpClientFactory.CreateClient("BackEndApiExternal");
-            //TasksList = await httpClient.GetFromJsonAsync<List<TaskModel>>($"api/tasks?createdBy={TasksCreatedBy}");
+            var httpClient = _httpClientFactory.CreateClient("BackEndApiExternal");
+            TasksList = await httpClient.GetFromJsonAsync<List<TaskModel>>($"api/tasks?createdBy={TasksCreatedBy}");
 
 
             // Invoke via Dapr SideCar URL
@@ -47,7 +47,7 @@ namespace TasksTracker.WebPortal.Frontend.Ui.Pages.Tasks
             
 
             // Invoke via DaprSDK (Invoke HTTP services using DaprClient)
-            TasksList = await _daprClient.InvokeMethodAsync<List<TaskModel>>(HttpMethod.Get, "tasksmanager-backend-api", $"api/tasks?createdBy={TasksCreatedBy}");
+            //TasksList = await _daprClient.InvokeMethodAsync<List<TaskModel>>(HttpMethod.Get, "tasksmanager-backend-api", $"api/tasks?createdBy={TasksCreatedBy}");
 
         }
 
