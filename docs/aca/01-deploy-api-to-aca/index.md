@@ -74,7 +74,7 @@ In this module, we will start by creating the first microservice named `ACA Web 
 - From VS Code Terminal tab, open developer command prompt or PowerShell terminal and navigate to the parent directory which hosts the `.csproj` project folder and build the project. 
 
     ```shell
-    cd ./TasksTracker.TasksManager.Backend.Api
+    cd ..
     dotnet build
     ```
 !!! note
