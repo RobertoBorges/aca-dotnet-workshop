@@ -7,142 +7,8 @@ canonical_url: https://bitoftech.net/2022/08/25/communication-microservices-azur
     60 minutes
 
 In this module, we will add a service named `ACA Web API – Frontend` as illustrated in the [architecture diagram](../../assets/images/00-workshop-intro/ACA-Architecture-workshop.jpg). This service will host a simple ASP.NET Razor pages web app which allows the end users to manage their tasks. After that we will provision Azure resources needed to deploy the service to ACA using Azure CLI.
-### 1. Create the Frontend Web App project (Web APP)
 
-- Open a command-line terminal and navigate to root folder of your project. 
-    ```shell
-    cd /aca-dotnet-workshop
-    ```
-
-- From VS Code Terminal tab, open developer command prompt or PowerShell terminal in the project folder `TasksTracker.ContainerApps` and initialize the project. This will create and ASP.NET Razor Pages web app project.
-    ```shell
-    dotnet new webapp  -o TasksTracker.WebPortal.Frontend.Ui
-    ```
-- We need to containerize this application, so we can push it to Azure Container Registry as a docker image then deploy it to ACA. Open the VS Code Command Palette (++ctrl+shift+p++) and select `Docker: Add Docker Files to Workspace...`
-    
-    - Use `.NET: ASP.NET Core` when prompted for application platform.
-    - Choose `TasksTracker.WebPortal.Frontend.Ui\TasksTracker.WebPortal.Fortend.Ui.csproj` when prompted to choose a project file.
-    - Choose `Linux` when prompted to choose the operating system.
-    - You will be asked if you want to add Docker Compose files. Select `No`.
-    - Take a note of the provided **application port** as we will be using later on.
-    - `Dockerfile` and `.dockerignore` files are added to the workspace.
-
-- Add a new folder named **Tasks** under the **Pages** folder. Then add a new folder named **Models** under the **Tasks** folder and create file as shown below.
-
-=== "TasksModel.cs"
-    
-    ```csharp
-    --8<-- "docs/aca/02-aca-comm/TasksModel.cs"
-    ```
-
-- Now, in the **Tasks** folder, we will add 3 Razor pages for CRUD operations which will be responsible for listing all the tasks, creating a new task, and updating existing tasks.
-By looking at the cshtml content notice that the page is expecting a query string named `createdBy` which will be used to group tasks for application users. 
-
-!!! note
-    We are following this approach here to keep the workshop simple, but for production applications, authentication should be applied and the user email should be retrieved from the claims identity of the authenticated users.
-
-=== "Index.cshtml"
-
-    ```html
-    --8<-- "https://raw.githubusercontent.com/Azure/aca-dotnet-workshop/c3783f3b23818615f298d52ce9595a059e22d8f6/TasksTracker.WebPortal.Frontend.Ui/Pages/Tasks/Index.cshtml"
-    ```
-
-=== "Index.cshtml.cs"
-    
-    ```csharp
-    --8<-- "docs/aca/02-aca-comm/Tasks.Index.cshtml.cs"
-    ```
-    !!! tip "What does this code do?"
-        In the code above we've injected named HttpClientFactory which is responsible to call the Backend API service as HTTP request. The index page supports deleting and marking tasks as completed along with listing tasks for certain users based on the `createdBy` property stored in a cookie named `TasksCreatedByCookie`. 
-        More about populating this property later in the workshop.
-
-=== "Create.cshtml"
-
-    ```html
-    --8<-- "https://raw.githubusercontent.com/Azure/aca-dotnet-workshop/c3783f3b23818615f298d52ce9595a059e22d8f6/TasksTracker.WebPortal.Frontend.Ui/Pages/Tasks/Create.cshtml"
-    ```
-
-=== "Create.cshtml.cs"
-
-    ```csharp
-    --8<-- "docs/aca/02-aca-comm/Create.cshtml.cs"
-    ```
-    !!! tip "What does this code do?"
-        The code is self-explanatory here. We just injected the type HttpClientFactory in order to issue a POST request and create a new task.
-
-=== "Edit.cshtml"
-
-    ```html
-    --8<-- "https://raw.githubusercontent.com/Azure/aca-dotnet-workshop/c3783f3b23818615f298d52ce9595a059e22d8f6/TasksTracker.WebPortal.Frontend.Ui/Pages/Tasks/Edit.cshtml"
-    ```
-=== "Edit.cshtml.cs"
-
-    ```csharp
-    --8<-- "docs/aca/02-aca-comm/Edit.cshtml.cs"
-    ```
-    !!! tip "What does this code do?"
-        The code added is similar to the create operation. The Edit page accepts the TaskId as a Guid, loads the task, and then updates the task by sending an HTTP PUT operation.
-
-- Now we will inject an HTTP client factory and define environment variables. To do so we will register the HttpClientFactory named `BackEndApiExternal` to make it available for injection in controllers. Open the `Program.cs` file and update it with highlighted code below:
-
-=== "Program.cs"
-
-    ```csharp hl_lines="12 13 14 15"
-    namespace TasksTracker.WebPortal.Frontend.Ui
-    {
-        public class Program
-        {
-            public static void Main(string[] args)
-            {
-                var builder = WebApplication.CreateBuilder(args);
-
-                // Add services to the container.
-                builder.Services.AddRazorPages();
-
-                builder.Services.AddHttpClient("BackEndApiExternal", httpClient =>
-                {
-                    httpClient.BaseAddress = new Uri(builder.Configuration.GetValue<string>("BackendApiConfig:BaseUrlExternalHttp"));
-                });
-
-                var app = builder.Build();
-
-                // Code removed for brevity 
-            }
-        }
-    }
-    ```
-- Next, we will add a new environment variable named `BackendApiConfig:BaseUrlExternalHttp` into `appsettings.json` file. 
-This variable will contain the Base URL for the backend API deployed in the previous module to ACA. Later on in the workshop, we will see how we can set the environment variable once we deploy it to ACA.
-
-=== "appsettings.json"
-
-    ```json
-       --8<-- "docs/aca/02-aca-comm/appsettings.json"
-    ```
-
-- Lastly, we will update the web app landing page `Index.html` and `Index.cshtml.cs` inside **Pages** folder to capture the email of the tasks owner user and assign this email to a cookie named `TasksCreatedByCookie`. 
-
-=== "Index.cshtml"
-
-    ```html
-    --8<-- "https://raw.githubusercontent.com/Azure/aca-dotnet-workshop/c3783f3b23818615f298d52ce9595a059e22d8f6/TasksTracker.WebPortal.Frontend.Ui/Pages/Index.cshtml"
-    ```    
-=== "Index.cshtml.cs"
-    
-    ```csharp
-    --8<-- "docs/aca/02-aca-comm/Index.cshtml.cs"
-    ```
-
-- From VS Code Terminal tab, open developer command prompt or PowerShell terminal and navigate to the frontend directory which hosts the `.csproj` project folder and build the project. 
-
-    ```shell
-    cd ./TasksTracker.WebPortal.Frontend.Ui
-    dotnet build
-    ```
-!!! note
-    Make sure that the build is successful and that there are no build errors. Usually you should see a **Build succeeded** message in the terminal upon a successful build.
-
-### 2. Deploy Razor Pages Web App Frontend Project to ACA
+### 1. Deploy Razor Pages Web App Frontend Project to ACA
 
 We will assume that you still have the same PowerShell console session opened from the last module which has all the powershell variables defined from module 1. We need to add the below PS variables:
 
@@ -152,7 +18,6 @@ export FRONTEND_WEBAPP_NAME="tasksmanager-frontend-webapp"
 - Now we will build and push the Web App project docker image to ACR. Use the below command to initiate the image build and push process using ACR. The `.` at the end of the command represents the docker build context. In our case, we need to be on the parent directory which hosts the .csproject.
     
 ```shell
-cd ..
 az acr build --registry $ACR_NAME --image "tasksmanager/$FRONTEND_WEBAPP_NAME" --file 'TasksTracker.WebPortal.Frontend.Ui/Dockerfile' .
 ```
 Once this step is completed you can verify the results by going to the Azure portal and checking that a new repository named `tasksmanager/tasksmanager-frontend-webapp` has been created and there is a new docker image with a `latest` tag is created.
@@ -162,13 +27,13 @@ Once this step is completed you can verify the results by going to the Azure por
 
 ```shell
 az containerapp create \
---name "$FRONTEND_WEBAPP_NAME"  
+--name "$FRONTEND_WEBAPP_NAME" \
 --resource-group $RESOURCE_GROUP \
 --environment $ENVIRONMENT \
 --image "$ACR_NAME.azurecr.io/tasksmanager/$FRONTEND_WEBAPP_NAME:latest" \
 --registry-server "$ACR_NAME.azurecr.io" \
 --env-vars "BackendApiConfig__BaseUrlExternalHttp=<url to your backend api goes here. You can find this on the azure portal overview tab. Look for the Application url property there.>/" \
---target-port <port number that was generated when you created your docker file in vs code for your frontend application> `
+--target-port 80 \
 --ingress 'external' \
 --min-replicas 1 \
 --max-replicas 1 \
@@ -191,7 +56,7 @@ So far the Frontend App is sending HTTP requests to publicly exposed Web API whi
     az containerapp ingress enable \
     --name  $BACKEND_API_NAME  \
     --resource-group  $RESOURCE_GROUP \
-    --target-port [port number that was generated when you created your docker file in vs code for your backend application] \
+    --target-port 80 \
     --type "internal"
     ```
 

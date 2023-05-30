@@ -23,7 +23,7 @@
                 foreach (var task in Model.TasksList)
                 {
                     <tr>
-                        <td><a asp-page="./Edit" asp-route-id="@task.TaskId">@task.TaskName</a></td>
+                        <td><a href="#">@task.TaskName</a></td>
                         <td>@task.TaskDueDate.Date.ToString("dd-MM-yyyy")</td>
                         <td>@task.TaskAssignedTo</td>
                         <td>@Html.CheckBox("IsCompleted",@task.IsCompleted)</td>
