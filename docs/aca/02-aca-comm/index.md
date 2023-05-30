@@ -159,6 +159,7 @@ Once this step is completed you can verify the results by going to the Azure por
 
 - Next, we will create and deploy the Web App to ACA using the following command. Remember to replace the placeholders with your own values:
 
+
 ```shell
 az containerapp create \
 --name "$FRONTEND_WEBAPP_NAME"  

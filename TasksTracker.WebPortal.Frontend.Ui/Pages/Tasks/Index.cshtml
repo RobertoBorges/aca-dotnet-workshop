@@ -28,15 +28,9 @@
                         <td>@task.TaskAssignedTo</td>
                         <td>@Html.CheckBox("IsCompleted",@task.IsCompleted)</td>
                         <td>@Html.CheckBox("IsOverDue",@task.IsOverDue)</td>
-                        <td>
-                            <button type="submit" asp-page-handler="complete" asp-route-id="@task.TaskId">Complete</button>
-
-                            <button type="submit" asp-page-handler="delete" asp-route-id="@task.TaskId">Delete</button>
-                        </td>
                     </tr>
                 }
             }
         </tbody>
     </table>
-    <a asp-page="Create">Create New</a>
 </form>
