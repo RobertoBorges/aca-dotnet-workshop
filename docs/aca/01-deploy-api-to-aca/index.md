@@ -10,8 +10,8 @@ In this module, we will start by creating the first microservice named `ACA Web 
 ### 1. Create the backend API project (Web API)
 - Open a command-line terminal and create a folder for your project. Use the `code` command to launch Visual Studio Code from that directory as shown:
     ```shell
-    mkdir ~\TasksTracker.ContainerApps
-    cd ~\TasksTracker.ContainerApps
+    mkdir /TasksTracker.ContainerApps
+    cd /TasksTracker.ContainerApps
     code .
     ```
 
@@ -74,7 +74,7 @@ In this module, we will start by creating the first microservice named `ACA Web 
 - From VS Code Terminal tab, open developer command prompt or PowerShell terminal and navigate to the parent directory which hosts the `.csproj` project folder and build the project. 
 
     ```shell
-    cd ~\TasksTracker.ContainerApps\TasksTracker.TasksManager.Backend.Api
+    cd TasksTracker.TasksManager.Backend.Api
     dotnet build
     ```
 !!! note
@@ -180,7 +180,7 @@ We will be using Azure CLI to deploy the Web API Backend to ACA as shown in the 
 -  Build the Web API project on ACR and push the docker image to ACR. Use the below command to initiate the image build and push process using ACR. The `.` at the end of the command represents the docker build context, in our case, we need to be on the parent directory which hosts the `.csproj`.
 
     ```shell
-    cd ~\TasksTracker.ContainerApps
+    cd ..
     az acr build --registry $ACR_NAME --image "tasksmanager/$BACKEND_API_NAME" --file 'TasksTracker.TasksManager.Backend.Api/Dockerfile' .
     ```
     Once this step is completed you can verify the results by going to the Azure portal and checking that a new repository named `tasksmanager/tasksmanager-backend-api` has been created and there is a new docker image with a `latest` tag is created.
@@ -192,7 +192,7 @@ We will be using Azure CLI to deploy the Web API Backend to ACA as shown in the 
     --name $BACKEND_API_NAME  \
     --resource-group $RESOURCE_GROUP \
     --environment $ENVIRONMENT \
-    --image "$ACR_NAME.azurecr.io/tasksmanager/$BACKEND_API_NAME" \
+    --image "$ACR_NAME.azurecr.io/tasksmanager/$BACKEND_API_NAME:latest" \
     --registry-server "$ACR_NAME.azurecr.io" \
     --target-port [port number that was generated when you created your docker file in vs code] \
     --ingress 'external' \
