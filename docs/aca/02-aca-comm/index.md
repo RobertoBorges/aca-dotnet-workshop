@@ -11,7 +11,7 @@ In this module, we will add a service named `ACA Web API – Frontend` as illust
 
 - Open a command-line terminal and navigate to root folder of your project. 
     ```shell
-    cd ~\TasksTracker.ContainerApps
+    cd /aca-dotnet-workshop
     ```
 
 - From VS Code Terminal tab, open developer command prompt or PowerShell terminal in the project folder `TasksTracker.ContainerApps` and initialize the project. This will create and ASP.NET Razor Pages web app project.
@@ -136,7 +136,7 @@ This variable will contain the Base URL for the backend API deployed in the prev
 - From VS Code Terminal tab, open developer command prompt or PowerShell terminal and navigate to the frontend directory which hosts the `.csproj` project folder and build the project. 
 
     ```shell
-    cd ~\TasksTracker.ContainerApps\TasksTracker.WebPortal.Frontend.Ui
+    cd ./TasksTracker.WebPortal.Frontend.Ui
     dotnet build
     ```
 !!! note
@@ -146,32 +146,32 @@ This variable will contain the Base URL for the backend API deployed in the prev
 
 We will assume that you still have the same PowerShell console session opened from the last module which has all the powershell variables defined from module 1. We need to add the below PS variables:
 
-```powershell
-$FRONTEND_WEBAPP_NAME="tasksmanager-frontend-webapp"
+```shell
+export FRONTEND_WEBAPP_NAME="tasksmanager-frontend-webapp"
 ```
 - Now we will build and push the Web App project docker image to ACR. Use the below command to initiate the image build and push process using ACR. The `.` at the end of the command represents the docker build context. In our case, we need to be on the parent directory which hosts the .csproject.
     
-```powershell
-cd ~\TasksTracker.ContainerApps 
+```shell
+cd ..
 az acr build --registry $ACR_NAME --image "tasksmanager/$FRONTEND_WEBAPP_NAME" --file 'TasksTracker.WebPortal.Frontend.Ui/Dockerfile' .
 ```
 Once this step is completed you can verify the results by going to the Azure portal and checking that a new repository named `tasksmanager/tasksmanager-frontend-webapp` has been created and there is a new docker image with a `latest` tag is created.
 
 - Next, we will create and deploy the Web App to ACA using the following command. Remember to replace the placeholders with your own values:
 
-```powershell
-az containerapp create `
---name "$FRONTEND_WEBAPP_NAME"  `
---resource-group $RESOURCE_GROUP `
---environment $ENVIRONMENT `
---image "$ACR_NAME.azurecr.io/tasksmanager/$FRONTEND_WEBAPP_NAME" `
---registry-server "$ACR_NAME.azurecr.io" `
---env-vars "BackendApiConfig__BaseUrlExternalHttp=<url to your backend api goes here. You can find this on the azure portal overview tab. Look for the Application url property there.>/" `
+```shell
+az containerapp create \
+--name "$FRONTEND_WEBAPP_NAME"  
+--resource-group $RESOURCE_GROUP \
+--environment $ENVIRONMENT \
+--image "$ACR_NAME.azurecr.io/tasksmanager/$FRONTEND_WEBAPP_NAME:latest" \
+--registry-server "$ACR_NAME.azurecr.io" \
+--env-vars "BackendApiConfig__BaseUrlExternalHttp=<url to your backend api goes here. You can find this on the azure portal overview tab. Look for the Application url property there.>/" \
 --target-port <port number that was generated when you created your docker file in vs code for your frontend application> `
---ingress 'external' `
---min-replicas 1 `
---max-replicas 1 `
---cpu 0.25 --memory 0.5Gi `
+--ingress 'external' \
+--min-replicas 1 \
+--max-replicas 1 \
+--cpu 0.25 --memory 0.5Gi \
 --query configuration.ingress.fqdn
 ```
 !!! tip    
@@ -186,11 +186,11 @@ So far the Frontend App is sending HTTP requests to publicly exposed Web API whi
 
 - To change the settings of the Backend API, execute the following command:
 
-    ```powershell
-    az containerapp ingress enable `
-    --name  $BACKEND_API_NAME  `
-    --resource-group  $RESOURCE_GROUP `
-    --target-port [port number that was generated when you created your docker file in vs code for your backend application] `
+    ```shell
+    az containerapp ingress enable \
+    --name  $BACKEND_API_NAME  \
+    --resource-group  $RESOURCE_GROUP \
+    --target-port [port number that was generated when you created your docker file in vs code for your backend application] \
     --type "internal"
     ```
 
@@ -204,10 +204,10 @@ So far the Frontend App is sending HTTP requests to publicly exposed Web API whi
 
 - Now we will need to update the Frontend Web App environment variable to point to the internal backend Web API FQDN. The last thing we need to do here is to update the Frontend WebApp environment variable named `BackendApiConfig_BaseUrlExternalHttp` with the new value of the internal Backend Web API base URL, to do so we need to update the Web App container app and it will create a new revision implicitly (more about revisions in the upcoming modules). The following command will update the container app with the changes:
 
-    ```powershell
-    az containerapp update `
-    --name "$FRONTEND_WEBAPP_NAME"  `
-    --resource-group $RESOURCE_GROUP `
+    ```shell
+    az containerapp update \
+    --name "$FRONTEND_WEBAPP_NAME"  \
+    --resource-group $RESOURCE_GROUP \
     --set-env-vars "BackendApiConfig__BaseUrlExternalHttp=https://tasksmanager-backend-api.internal.[Environment unique identifier].eastus.azurecontainerapps.io"
     ```
 !!! success
