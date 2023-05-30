@@ -1,6 +1,8 @@
 
-![Azure Container Apps](docs/assets/images/00-workshop-intro/azure-container-apps-image.png) 
+![Azure Container Workshop](docs/assets/images/00-workshop-intro/azure-container-apps-image.png) 
 
+Please refer to the following link to the original workshop
+https://azure.github.io/aca-dotnet-workshop/
 
 There is no doubt that building containerized applications and following a microservices architecture is one of the most common software architecture patterns observed in the past couple of years.
 
