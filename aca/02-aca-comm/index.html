@@ -499,7 +499,37 @@
   
     <li class="md-nav__item">
       <a href="../03-deploy-api-to-aci/" class="md-nav__link">
-        Module 3 - Communication between Microservices in ACA
+        Module 3 - Deploy Backend API to ACI
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-deploy-api-to-app/" class="md-nav__link">
+        Module 4 - Deploy Fontend APP to App Service
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-deploy-api-to-aks/" class="md-nav__link">
+        Module 5 - Deploy Backend API to AKS
       </a>
     </li>
   
@@ -518,7 +548,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
       
       
         
@@ -537,18 +567,18 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../10-aca-iac-bicep/">Module 5 - Deployment Via Bicep and DevOps</a>
+          <a href="../10-aca-iac-bicep/">Module 6 - Deployment Via Bicep and DevOps</a>
           
-            <label for="__nav_6">
+            <label for="__nav_8">
               <span class="md-nav__icon md-icon"></span>
             </label>
           
         </div>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_6">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
-          Module 5 - Deployment Via Bicep and DevOps
+          Module 6 - Deployment Via Bicep and DevOps
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -630,7 +660,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
       
       
         
@@ -642,13 +672,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
           Contributing
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_8">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10">
           <span class="md-nav__icon md-icon"></span>
           Contributing
         </label>
@@ -715,7 +745,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
       
       
         
@@ -725,13 +755,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
           Appendix
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_9">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_11">
           <span class="md-nav__icon md-icon"></span>
           Appendix
         </label>
@@ -892,7 +922,7 @@ The <code>ingress</code> property is set to <code>external</code> as the Web fro
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>az<span class="w"> </span>containerapp<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>--name<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FRONTEND_WEBAPP_NAME</span><span class="s2">&quot;</span><span class="w">  </span><span class="se">\</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>--set-env-vars<span class="w"> </span><span class="s2">&quot;BackendApiConfig__BaseUrlExternalHttp=https://tasksmanager-backend-api.internal.[Environment unique identifier].eastus.azurecontainerapps.io&quot;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>--set-env-vars<span class="w"> </span><span class="s2">&quot;BackendApiConfig__BaseUrlExternalHttp=https://tasksmanager-backend-api-</span><span class="nv">$YOUR_ACA_ENV_UNIQUE_ID</span><span class="s2">.internal.[Environment unique identifier].eastus.azurecontainerapps.io&quot;</span>
 </span></code></pre></div>
 </li>
 </ul>
@@ -900,14 +930,13 @@ The <code>ingress</code> property is set to <code>external</code> as the Web fro
 <p class="admonition-title">Success</p>
 <p>Browse the web app again, and you should be able to see the same results and access the backend API endpoints from the Web App.</p>
 </div>
-<p>In the next module, we will start integrating Dapr and use the service to service Building block for services discovery and invocation.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2023-05-30
+      2023-05-31
     
   </small>
 </div>
@@ -957,13 +986,13 @@ The <code>ingress</code> property is set to <code>external</code> as the Web fro
         
         
           
-          <a href="../03-deploy-api-to-aci/" class="md-footer__link md-footer__link--next" aria-label="Next: Module 3 - Communication between Microservices in ACA" rel="next">
+          <a href="../03-deploy-api-to-aci/" class="md-footer__link md-footer__link--next" aria-label="Next: Module 3 - Deploy Backend API to ACI" rel="next">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Module 3 - Communication between Microservices in ACA
+                Module 3 - Deploy Backend API to ACI
               </div>
             </div>
             <div class="md-footer__button md-icon">

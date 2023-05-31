@@ -18,17 +18,17 @@
 
     <!-- Canonical -->
     
-        <link rel="canonical" href="https://bitoftech.net/2022/08/25/tutorial-building-microservice-applications-azure-container-apps-dapr/">
+        <link rel="canonical" href="https://bitoftech.net/2022/08/29/azure-container-apps-state-store-with-dapr-state-management-api/">
     
 
     <!-- Previous page -->
     
-        <link rel="prev" href="../.." />
+        <link rel="prev" href="../04-deploy-api-to-app/" />
     
 
     <!-- Next page -->
     
-        <link rel="next" href="1-aca-core-components/" />
+        <link rel="next" href="../10-aca-iac-bicep/" />
     
 
     <!-- Favicon -->
@@ -42,7 +42,7 @@
 
     
       
-        <title>Introduction - Azure Container Apps - Workshop</title>
+        <title>Module 5 - Deploy Backend API to AKS - Azure Container Apps - Workshop</title>
       
     
     
@@ -87,7 +87,7 @@
     
     
     
-        <meta name="og:url" content="https://bitoftech.net/2022/08/25/tutorial-building-microservice-applications-azure-container-apps-dapr/" />
+        <meta name="og:url" content="https://bitoftech.net/2022/08/29/azure-container-apps-state-store-with-dapr-state-management-api/" />
     
 
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
@@ -123,7 +123,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#description" class="md-skip">
+        <a href="#module-4-deploy-frontend-app-to-azure-app-service-and-integrate-with-azure-container-intance-app-running-backend-api" class="md-skip">
           Skip to content
         </a>
       
@@ -157,7 +157,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction
+              Module 5 - Deploy Backend API to AKS
             
           </span>
         </div>
@@ -305,16 +305,14 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
         
@@ -334,8 +332,8 @@
       
         
         
-        <div class="md-nav__link md-nav__link--index md-nav__link--active">
-          <a href="./">Workshop Introduction</a>
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../00-workshop-intro/">Workshop Introduction</a>
           
             <label for="__nav_2">
               <span class="md-nav__icon md-icon"></span>
@@ -343,7 +341,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Workshop Introduction
@@ -358,7 +356,7 @@
   
   
     <li class="md-nav__item">
-      <a href="1-aca-core-components/" class="md-nav__link">
+      <a href="../00-workshop-intro/1-aca-core-components/" class="md-nav__link">
         ACA Core Components Overview
       </a>
     </li>
@@ -372,7 +370,7 @@
   
   
     <li class="md-nav__item">
-      <a href="2-scenario-architecture/" class="md-nav__link">
+      <a href="../00-workshop-intro/2-scenario-architecture/" class="md-nav__link">
         Scenario and Solution Architecture
       </a>
     </li>
@@ -386,7 +384,7 @@
   
   
     <li class="md-nav__item">
-      <a href="3-dapr-integration/" class="md-nav__link">
+      <a href="../00-workshop-intro/3-dapr-integration/" class="md-nav__link">
         Dapr Integration in ACA
       </a>
     </li>
@@ -400,7 +398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="4-prerequisites/" class="md-nav__link">
+      <a href="../00-workshop-intro/4-prerequisites/" class="md-nav__link">
         Prerequisites
       </a>
     </li>
@@ -480,11 +478,79 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../05-deploy-api-to-aks/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Module 5 - Deploy Backend API to AKS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Module 5 - Deploy Backend API to AKS
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-app-service" class="md-nav__link">
+    Overview of App Service
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-an-app-service-plan" class="md-nav__link">
+    Deploy an App Service plan
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploy an App Service plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploy-the-frontend-web-app-to-azure-app-service-using-the-image-from-azure-container-registry" class="md-nav__link">
+    Deploy the frontend web app to Azure App Service using the image from Azure Container Registry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-the-backend-api-url-to-the-azure-container-instances-app-url" class="md-nav__link">
+    Update the backend API URL to the Azure Container Instances App URL
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -772,6 +838,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -780,16 +848,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
-    Description
+  <a href="#overview-of-app-service" class="md-nav__link">
+    Overview of App Service
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#objectives-outcomes" class="md-nav__link">
-    Objectives &amp; Outcomes
+  <a href="#deploy-an-app-service-plan" class="md-nav__link">
+    Deploy an App Service plan
   </a>
+  
+    <nav class="md-nav" aria-label="Deploy an App Service plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploy-the-frontend-web-app-to-azure-app-service-using-the-image-from-azure-container-registry" class="md-nav__link">
+    Deploy the frontend web app to Azure App Service using the image from Azure Container Registry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-the-backend-api-url-to-the-azure-container-instances-app-url" class="md-nav__link">
+    Update the backend API URL to the Azure Container Instances App URL
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -811,21 +899,29 @@
   
 
 
-  <h1>Introduction</h1>
-
-<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
-<p>The Building Microservice Applications with Azure Container Apps workshop will provide you with the practical knowledge to create, deploy and operate an enterprise level microservice application deployed on the latest serverless containers offering <a href="https://learn.microsoft.com/en-us/azure/container-apps/overview">Azure Container Apps</a>. We will demonstrate enabling different components like Dapr which will allow you to address common challenges when building an event driven distributed application while keeping your code platform agnostic. In addition to this you will get familiar with the built-in autoscaling capabilities in Azure Container Apps using KEDA and how to control spending by scaling down to zero replicas.</p>
-<h2 id="objectives-outcomes">Objectives &amp; Outcomes<a class="headerlink" href="#objectives-outcomes" title="Permanent link">&para;</a></h2>
-<p>After completing the workshop, you should:</p>
-<ul>
-<li>Gain practical knowledge to create, deploy, and operate a distributed application with multiple microservices deployed to ACA.</li>
-<li>Setup up Dapr locally and configure VS code to support a complete local debugging experience for your distributed microservice application project.</li>
-<li>Use various building blocks of Dapr to simplify the building of Microservice applications, utilizing different building blocks like service-to-service Invocation using HTTP and gRPC, State management, Pub and Sub, and Input &amp; output bindings.</li>
-<li>Get familiar with Autoscaling feature in ACA using KEDA.</li>
-<li>Configure Monitoring, Observability, and distributed tracings of ACA using Application Insights.</li>
-<li>Setup Continuous Deployment for your microservice application using GitHub Actions.</li>
-<li>Recreate your entire microservice application components and generate IaC scripts using Bicep.</li>
-</ul>
+<h1 id="module-4-deploy-frontend-app-to-azure-app-service-and-integrate-with-azure-container-intance-app-running-backend-api">Module 4 - Deploy Frontend App to Azure App Service and integrate with Azure Container intance App running Backend API<a class="headerlink" href="#module-4-deploy-frontend-app-to-azure-app-service-and-integrate-with-azure-container-intance-app-running-backend-api" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Module Duration</p>
+<p>20 minutes</p>
+</div>
+<p>In this module, we will deploy the frontend web app to Azure App Service and integrate it with the backend API running on Azure Container Instances.</p>
+<p>The goal is to confirm that images you build to run on Azure can run in multiple environments. In this case, we will run the frontend web app on Azure App Service and the backend API on Azure Container Instances.</p>
+<h3 id="overview-of-app-service">Overview of App Service<a class="headerlink" href="#overview-of-app-service" title="Permanent link">&para;</a></h3>
+<p>Azure App Service is a fully managed web hosting service for building web apps, mobile back ends, and RESTful APIs. It provides out-of-the-box support for authentication, push notifications, offline sync, and more. You can also add your own REST APIs to enable your app scenarios.</p>
+<h2 id="deploy-an-app-service-plan">Deploy an App Service plan<a class="headerlink" href="#deploy-an-app-service-plan" title="Permanent link">&para;</a></h2>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>az<span class="w"> </span>appservice<span class="w"> </span>plan<span class="w"> </span>create<span class="w"> </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span>--name<span class="w"> </span>pam<span class="nv">$FRONTEND_WEBAPP_NAME</span><span class="w"> </span>--sku<span class="w"> </span>S1<span class="w"> </span>--is-linux
+</span></code></pre></div>
+<h3 id="deploy-the-frontend-web-app-to-azure-app-service-using-the-image-from-azure-container-registry">Deploy the frontend web app to Azure App Service using the image from Azure Container Registry<a class="headerlink" href="#deploy-the-frontend-web-app-to-azure-app-service-using-the-image-from-azure-container-registry" title="Permanent link">&para;</a></h3>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>az<span class="w"> </span>webapp<span class="w"> </span>create<span class="w"> </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span>--plan<span class="w"> </span>pam<span class="nv">$FRONTEND_WEBAPP_NAME</span><span class="w"> </span>--name<span class="w"> </span><span class="nv">$FRONTEND_WEBAPP_NAME</span>-<span class="nv">$YOUR_ACA_ENV_UNIQUE_ID</span><span class="w"> </span>--deployment-container-image-name<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ACR_NAME</span><span class="s2">.azurecr.io/tasksmanager/</span><span class="nv">$FRONTEND_WEBAPP_NAME</span><span class="s2">:latest&quot;</span>
+</span></code></pre></div>
+<h3 id="update-the-backend-api-url-to-the-azure-container-instances-app-url">Update the backend API URL to the Azure Container Instances App URL<a class="headerlink" href="#update-the-backend-api-url-to-the-azure-container-instances-app-url" title="Permanent link">&para;</a></h3>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>az<span class="w"> </span>webapp<span class="w"> </span>config<span class="w"> </span>appsettings<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--resource-group<span class="w"> </span><span class="nv">$RESOURCE_GROUP</span><span class="w"> </span>--name<span class="w"> </span><span class="nv">$FRONTEND_WEBAPP_NAME</span>-<span class="nv">$YOUR_ACA_ENV_UNIQUE_ID</span><span class="w"> </span>--settings<span class="w"> </span><span class="nv">BackendApiConfig__BaseUrlExternalHttp</span><span class="o">=</span>http://tasksmanager-backend-api-<span class="nv">$YOUR_ACA_ENV_UNIQUE_ID</span>.eastus.azurecontainer.io
+</span></code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Success</p>
+<p>Browse the web app , and you should be able to see the same results and access the backend API endpoints from the Web App but now we are using Web Apps + Container Instances.</p>
+</div>
+<p>In the next module we will start to deploy the same app but now using Azure Kubernetes Service (AKS).</p>
 
   <hr>
 <div class="md-source-file">
@@ -866,7 +962,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Homepage" rel="prev">
+          <a href="../04-deploy-api-to-app/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 4 - Deploy Fontend APP to App Service" rel="prev">
             <div class="md-footer__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
             </div>
@@ -875,20 +971,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Homepage
+                Module 4 - Deploy Fontend APP to App Service
               </div>
             </div>
           </a>
         
         
           
-          <a href="1-aca-core-components/" class="md-footer__link md-footer__link--next" aria-label="Next: ACA Core Components Overview" rel="next">
+          <a href="../10-aca-iac-bicep/" class="md-footer__link md-footer__link--next" aria-label="Next: Module 10 - Deployment Via Bicep and DevOps" rel="next">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                ACA Core Components Overview
+                Module 10 - Deployment Via Bicep and DevOps
               </div>
             </div>
             <div class="md-footer__button md-icon">

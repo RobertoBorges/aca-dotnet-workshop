@@ -447,7 +447,37 @@
   
     <li class="md-nav__item">
       <a href="../03-deploy-api-to-aci/" class="md-nav__link">
-        Module 3 - Communication between Microservices in ACA
+        Module 3 - Deploy Backend API to ACI
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-deploy-api-to-app/" class="md-nav__link">
+        Module 4 - Deploy Fontend APP to App Service
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-deploy-api-to-aks/" class="md-nav__link">
+        Module 5 - Deploy Backend API to AKS
       </a>
     </li>
   
@@ -466,7 +496,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
       
       
         
@@ -485,18 +515,18 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../10-aca-iac-bicep/">Module 5 - Deployment Via Bicep and DevOps</a>
+          <a href="../10-aca-iac-bicep/">Module 6 - Deployment Via Bicep and DevOps</a>
           
-            <label for="__nav_6">
+            <label for="__nav_8">
               <span class="md-nav__icon md-icon"></span>
             </label>
           
         </div>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_6">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
-          Module 5 - Deployment Via Bicep and DevOps
+          Module 6 - Deployment Via Bicep and DevOps
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -578,7 +608,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
       
       
         
@@ -590,13 +620,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
           Contributing
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_8">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_10">
           <span class="md-nav__icon md-icon"></span>
           Contributing
         </label>
@@ -663,7 +693,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
       
       
         
@@ -673,13 +703,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
           Appendix
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_9">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_11">
           <span class="md-nav__icon md-icon"></span>
           Appendix
         </label>
@@ -986,7 +1016,7 @@ events coming in from external systems as well as interface with external system
 <p>For simplicity of the workshop we are going to host those two supposedly external services in the same subscription of our 
 Tasks Tracker microservice application.</p>
 </div>
-<p>If you look at Dapr Bindings Building Block, you will notice a lot of similarities with the Pub/Sub Building Block that we covered in the <a href="../05-aca-dapr-pubsubapi/">previous module</a>. But remember that Pub/Sub Building Block is meant to be used for Async communication between services <strong>within your solution</strong>. The Binding Building Block has a wider scope and it mainly focuses on connectivity and interoperability across different systems, disparate applications, and services outside the boundaries of your own application. For a full list of <a href="https://docs.dapr.io/reference/components-reference/supported-bindings/">supported bindings</a> visit this link.</p>
+<p>If you look at Dapr Bindings Building Block, you will notice a lot of similarities with the Pub/Sub Building Block that we covered in the <a href="../../aca/05-aca-dapr-pubsubapi/index.md">previous module</a>. But remember that Pub/Sub Building Block is meant to be used for Async communication between services <strong>within your solution</strong>. The Binding Building Block has a wider scope and it mainly focuses on connectivity and interoperability across different systems, disparate applications, and services outside the boundaries of your own application. For a full list of <a href="https://docs.dapr.io/reference/components-reference/supported-bindings/">supported bindings</a> visit this link.</p>
 <h3 id="overview-of-dapr-bindings-building-block">Overview of Dapr Bindings Building Block<a class="headerlink" href="#overview-of-dapr-bindings-building-block" title="Permanent link">&para;</a></h3>
 <p>Let's take a look at the detailed Dapr Binding Building Block architecture diagram that we are going to implement in this module to fulfill the use case we discussed earlier:
 <a class="glightbox" href="../../assets/images/06-aca-dapr-bindingsapi/detailed-binding.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="detailed-binding-arch" src="../../assets/images/06-aca-dapr-bindingsapi/detailed-binding.jpg" /></a></p>
@@ -1707,7 +1737,7 @@ message into Azure Storage Queue (using Azure Storage Explorer tool used earlier
   <small>
     
       Last update:
-      2023-05-30
+      2023-05-31
     
   </small>
 </div>
