@@ -2,9 +2,9 @@
 canonical_url: https://bitoftech.net/2022/08/29/dapr-integration-with-azure-container-apps/
 ---
 
-# Module 3 - Deploy another the same backend using Azure Container instances 
+# Module 3 - Deploy the same backend image but now using Azure Container instances 
 !!! info "Module Duration"
-    30 minutes
+    20 minutes
 
 In this module, we weill reuse the same backend API and deploy it to Azure Container Instances (ACI). We will then deploy the same frontend web app and integrate both using Azure Container Instances.
 
