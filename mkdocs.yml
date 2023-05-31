@@ -11,8 +11,10 @@ nav:
     - Prerequisites: aca/00-workshop-intro/4-prerequisites.md
   - Module 1 - Deploy Backend API to ACA: aca/01-deploy-api-to-aca/index.md
   - Module 2 - Communication between Microservices in ACA: aca/02-aca-comm/index.md
-  - Module 3 - Communication between Microservices in ACA: aca/03-deploy-api-to-aci/index.md  
-  - Module 5 - Deployment Via Bicep and DevOps:
+  - Module 3 - Deploy Backend API to ACI: aca/03-deploy-api-to-aci/index.md
+  - Module 4 - Deploy Fontend App to App Service: aca/04-deploy-api-to-app/index.md
+  - Module 5 - Deploy Backend API to AKS: aca/05-deploy-api-to-aks/index.md
+  - Module 6 - Deployment Via Bicep and DevOps:
     - aca/10-aca-iac-bicep/index.md
     - Deploy Infrastructure using Bicep: aca/10-aca-iac-bicep/iac-bicep.md
     - Deploy Infrastructure using Bicep via GitHub Actions: aca/10-aca-iac-bicep/ci-cd-git-action.md
