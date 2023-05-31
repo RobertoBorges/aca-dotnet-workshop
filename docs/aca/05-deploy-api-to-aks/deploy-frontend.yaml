@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-deployment
+  labels:
+    app: taskwebapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taskwebapp
+  template:
+    metadata:
+      labels:
+        app: taskwebapp
+    spec:
+      containers:
+      - name: taskwebapp
+        image: <replace with your ACR name>.azurecr.io/tasksmanager/tasksmanager-frontend-webapp:latest
+        ports: 
+        - containerPort: 80
+        env:
+        - name: BackendApiConfig__BaseUrlExternalHttp
+          value: "http://backend-service"
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: taskwebapp
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer

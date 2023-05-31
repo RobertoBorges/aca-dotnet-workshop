@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: tasksapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tasksapi
+  template:
+    metadata:
+      labels:
+        app: tasksapi
+    spec:
+      containers:
+      - name: tasksapi
+        image: <replace with your ACR name>.azurecr.io/tasksmanager/tasksmanager-backend-api:latest
+        ports: 
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
