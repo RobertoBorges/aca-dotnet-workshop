@@ -23,44 +23,6 @@ param backendProcessorServiceName string
 @description('The name of the service for the frontend web app service. The name is use as Dapr App ID.')
 param frontendWebAppServiceName string
 
-// Service Bus
-@description('The name of the service bus namespace.')
-param serviceBusName string
-
-@description('The name of the service bus topic.')
-param serviceBusTopicName string
-
-@description('The name of the service bus topic\'s authorization rule.')
-param serviceBusTopicAuthorizationRuleName string
-
-// Cosmos DB
-@description('The name of the provisioned Cosmos DB resource.')
-param cosmosDbName string 
-
-@description('The name of the provisioned Cosmos DB\'s database.')
-param cosmosDbDatabaseName string
-
-@description('The name of Cosmos DB\'s collection.')
-param cosmosDbCollectionName string
-
-// Key Vault
-@description('The resource ID of the key vault.')
-param keyVaultId string
-
-@description('The name of the secret containing the SendGrid API key value for the Backend Background Processor Service.')
-param sendGridKeySecretName string
-
-@secure()
-@description('The SendGrid API key for for Backend Background Processor Service.')
-param sendGridKeySecretValue string
-
-@description('The name of the secret containing the External Azure Storage Access key for the Backend Background Processor Service.')
-param externalStorageKeySecretName string
-
-// External Storage
-@description('The name of the external Azure Storage Account.')
-param externalStorageAccountName string
-
 // Container Registry & Images
 @description('The name of the container registry.')
 param containerRegistryName string
@@ -149,14 +111,9 @@ module backendApiService 'container-apps/webapi-backend-service.bicep' = {
     location: location
     tags: tags
     containerAppsEnvironmentId: containerAppsEnvironment.id
-    serviceBusName: serviceBusName
-    serviceBusTopicName: serviceBusTopicName
     containerRegistryName: containerRegistryName
     containerRegistryUserAssignedIdentityId: containerRegistryUserAssignedIdentity.id
     backendApiServiceImage: backendApiServiceImage
-    cosmosDbName: cosmosDbName
-    cosmosDbDatabaseName: cosmosDbDatabaseName
-    cosmosDbCollectionName: cosmosDbCollectionName
     appInsightsInstrumentationKey: applicationInsights.properties.InstrumentationKey
     backendApiPortNumber: backendApiPortNumber
   }
@@ -169,16 +126,8 @@ module backendProcessorService 'container-apps/processor-backend-service.bicep' 
     location: location
     tags: tags
     containerAppsEnvironmentId: containerAppsEnvironment.id
-    keyVaultId: keyVaultId
-    serviceBusName: serviceBusName
-    serviceBusTopicName: serviceBusTopicName
-    serviceBusTopicAuthorizationRuleName: serviceBusTopicAuthorizationRuleName
     containerRegistryName: containerRegistryName
     containerRegistryUserAssignedIdentityId: containerRegistryUserAssignedIdentity.id
-    sendGridKeySecretName: sendGridKeySecretName
-    sendGridKeySecretValue: sendGridKeySecretValue
-    externalStorageAccountName: externalStorageAccountName
-    externalStorageKeySecretName:externalStorageKeySecretName
     backendProcessorServiceImage: backendProcessorServiceImage
     appInsightsInstrumentationKey: applicationInsights.properties.InstrumentationKey
     backendProcessorPortNumber: backendProcessorPortNumber

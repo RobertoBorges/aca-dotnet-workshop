@@ -10,5 +10,6 @@
             }
         ],
         "scanLimit": 200
-    }
+    },
+    "sarif-viewer.connectToGithubCodeScanning": "off"
 }
