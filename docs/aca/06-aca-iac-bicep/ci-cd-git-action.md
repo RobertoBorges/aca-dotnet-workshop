@@ -12,7 +12,7 @@ The workshop repository contains a GitHub Action workflow file that will be used
 
 Start by forking the workshop repository to your GitHub account. Follow the steps below to fork the workshop:
 
-1. Navigate to the workshop repository at [:material-github: Azure/aca-dotnet-workshop](https://github.com/Azure/aca-dotnet-workshop){target=_blank}
+1. Navigate to the workshop repository at [:material-github: RobertoBorges/azure-containers-dotnet-workshop](https://github.com/RobertoBorges/azure-containers-dotnet-workshop){target=_blank}
 2. Click the **Fork** button in the top-right corner of the page.
 3. Select your GitHub account to fork the repository to.
 4. Wait for the repository to be forked.
