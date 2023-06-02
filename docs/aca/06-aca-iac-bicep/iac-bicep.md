@@ -98,9 +98,6 @@ Next, we will prepare container images for the three container apps and update t
         "containerRegistryName": {
             "value": "<CONTAINER_REGISTRY_NAME>"
         },
-        "backendProcessorServiceImage": {
-            "value": "<CONTAINER_REGISTRY_NAME>.azurecr.io/tasksmanager/tasksmanager-backend-processor:latest"
-        },
         "backendApiServiceImage": {
             "value": "<CONTAINER_REGISTRY_NAME>.azurecr.io/tasksmanager/tasksmanager-backend-api:latest"
         },
@@ -108,7 +105,6 @@ Next, we will prepare container images for the three container apps and update t
             "value": "<CONTAINER_REGISTRY_NAME>.azurecr.io/tasksmanager/tasksmanager-frontend-webapp:latest"
         }
         ```
-
 
 === "Option 2: Import pre-built public images to your private Azure Container Registry"
         
@@ -118,31 +114,26 @@ Next, we will prepare container images for the three container apps and update t
     1. Create an Azure Container Registry (ACR) inside the newly created Resource Group:
 
         ```shell
-        $CONTAINER_REGISTRY_NAME="<your ACR name>"
+        export CONTAINER_REGISTRY_NAME="<your ACR name>"
 
-        az acr create `
-            --resource-group $RESOURCE_GROUP `
-            --name $CONTAINER_REGISTRY_NAME `
+        az acr create \
+            --resource-group $RESOURCE_GROUP \
+            --name $CONTAINER_REGISTRY_NAME \
             --sku Basic
         ```
     2. Import the images to your private ACR as shown below:
 
         ```shell 
 
-            az acr import `
-            --name $CONTAINER_REGISTRY_NAME `
-            --image tasksmanager/tasksmanager-backend-api `
+            az acr import \
+            --name $CONTAINER_REGISTRY_NAME \
+            --image tasksmanager/tasksmanager-backend-api \
             --source ghcr.io/azure/tasksmanager-backend-api:latest
             
-            az acr import  `
-            --name $CONTAINER_REGISTRY_NAME `
-            --image tasksmanager/tasksmanager-frontend-webapp `
+            az acr import  \
+            --name $CONTAINER_REGISTRY_NAME \
+            --image tasksmanager/tasksmanager-frontend-webapp \
             --source ghcr.io/azure/tasksmanager-frontend-webapp:latest
-            
-            az acr import  `
-            --name $CONTAINER_REGISTRY_NAME `
-            --image tasksmanager/tasksmanager-backend-processor `
-            --source ghcr.io/azure/tasksmanager-backend-processor:latest
 
         ```
 
@@ -152,9 +143,6 @@ Next, we will prepare container images for the three container apps and update t
         {
             "containerRegistryName": {
                 "value": "<CONTAINER_REGISTRY_NAME>"
-            },
-            "backendProcessorServiceImage": {
-                "value": "<CONTAINER_REGISTRY_NAME>.azurecr.io/tasksmanager/tasksmanager-backend-processor:latest"
             },
             "backendApiServiceImage": {
                 "value": "<CONTAINER_REGISTRY_NAME>.azurecr.io/tasksmanager/tasksmanager-backend-api:latest"
