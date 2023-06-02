@@ -22,9 +22,9 @@ variables:
   - name: REGISTRY
     value: ghcr.io
   - name: BACKEND_API_IMAGE_NAME
-    value: RobertoBorges/tasksmanager-backend-api
+    value: robertoborges/tasksmanager-backend-api
   - name: FRONTEND_APP_IMAGE_NAME
-    value: RobertoBorges/tasksmanager-frontend-webapp
+    value: robertoborges/tasksmanager-frontend-webapp
   - group: 'AcaApp'
 
 
