@@ -36,7 +36,7 @@ param frontendWebAppServiceName string = 'frontend-webapp-${uniqueString(resourc
 
 // Container Registry & Images
 @description('The name of the container registry.')
-param containerRegistryName string = 'acr-${uniqueString(resourceGroup().id)}${suffix}'
+param containerRegistryName string = 'acr${uniqueString(resourceGroup().id)}${suffix}'
 
 @description('The image for the backend api service.')
 param backendApiServiceImage string = 'ghcr.io/robertoborges/tasksmanager-backend-api:sha-f736c52'
