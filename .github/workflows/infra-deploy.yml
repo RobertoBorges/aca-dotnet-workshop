@@ -157,7 +157,7 @@ jobs:
           resourceGroupName: ${{ vars.RESOURCE_GROUP }}
           region: ${{ vars.LOCATION }}
           template: ./bicep/main.bicep
-          parameters: ./bicep/main.parameters.json containerRegistryName=${{ vars.CONTAINER_REGISTRY_NAME }} backendProcessorServiceImage=${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io/tasksmanager/tasksmanager-backend-processor:latest backendApiServiceImage=${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io/tasksmanager/tasksmanager-backend-api:latest frontendWebAppServiceImage=${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io/tasksmanager/tasksmanager-frontend-webapp:latest
+          parameters: ./bicep/main.parameters.json containerRegistryName=${{ vars.CONTAINER_REGISTRY_NAME }} backendApiServiceImage=${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io/tasksmanager/tasksmanager-backend-api:latest frontendWebAppServiceImage=${{ vars.CONTAINER_REGISTRY_NAME }}.azurecr.io/tasksmanager/tasksmanager-frontend-webapp:latest
           failOnStdErr: false
 
   # This job deploys the bicep template to Azure subscription using GitHub Container Registry images
