@@ -2,7 +2,7 @@
 canonical_url: https://bitoftech.net/2022/08/25/communication-microservices-azure-container-apps/
 ---
 
-# Module 2 - Communication Between Microservices in ACA
+# Module 2 - Communication Between Microservices in Azure Containers Apps (ACA)
 !!! info "Module Duration"
     60 minutes
 
@@ -78,4 +78,3 @@ So far the Frontend App is sending HTTP requests to publicly exposed Web API whi
     ```
 !!! success
     Browse the web app again, and you should be able to see the same results and access the backend API endpoints from the Web App.
-

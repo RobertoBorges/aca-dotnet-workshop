@@ -2,7 +2,7 @@
 canonical_url: 'https://bitoftech.net/2022/08/25/deploy-microservice-application-azure-container-apps/'
 ---
 
-# Module 1 - Deploy Backend API to ACA
+# Module 1 - Deploy Backend API to Azure Containers Apps (ACA)
 !!! info "Module Duration"
     30 minutes
 
