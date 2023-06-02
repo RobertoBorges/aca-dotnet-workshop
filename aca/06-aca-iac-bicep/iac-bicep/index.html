@@ -885,7 +885,7 @@
 <p>If you're not interested in manually deploying the Bicep files or creating the container registry yourself, and prefer not to delve into the details of how they work, then you can skip this section and head directly to either <a href="../ci-cd-git-action/">Build the Infrastructure as Code Using Bicep and Github</a> or <a href="../ci-cd-azdo/">Build the Infrastructure as Code Using Bicep and Azure DevOps</a> depending on your DevOps tool of choice.</p>
 </div>
 <p>To begin, we need to define the Bicep modules that will be required to generate the Infrastructure code. Our goal for this module is to have a freshly created resource group that encompasses all the necessary resources and configurations - such as connection strings, secrets, environment variables, and Dapr components - which we utilized to construct our solution. By the end, we will have a new resource group that includes the following resources.</p>
-<p><a class="glightbox" href="../../assets/images/06-aca-iac-bicep/aca-rescources.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="aca-resources" src="../../assets/images/06-aca-iac-bicep/aca-rescources.jpg" /></a></p>
+<p><a class="glightbox" href="../../../assets/images/06-aca-iac-bicep/aca-rescources.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="aca-resources" src="../../../assets/images/06-aca-iac-bicep/aca-rescources.jpg" /></a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>To simplify the execution of the module, we will assume that you have already created latest images of three services and pushed them to a container registry. <a href="#deploy-the-infrastructure-and-create-the-components">This section</a> below guides you through
@@ -1124,7 +1124,7 @@ your private container instance as shown below.</p>
 <div class="admonition success">
 <p class="admonition-title">Success</p>
 <p>Upon successful deployment, you should observe all resources generated within the designated resource group. Additionally, you may navigate to the <code>Deployments</code> section to confirm that the ARM templates have been deployed, which should resemble the image provided below:</p>
-<p><a class="glightbox" href="../../assets/images/06-aca-iac-bicep/aca-deployment.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="aca-deployment" src="../../assets/images/06-aca-iac-bicep/aca-deployment.jpg" /></a></p>
+<p><a class="glightbox" href="../../../assets/images/06-aca-iac-bicep/aca-deployment.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="aca-deployment" src="../../../assets/images/06-aca-iac-bicep/aca-deployment.jpg" /></a></p>
 </div>
 
   <hr>
