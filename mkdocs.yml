@@ -19,7 +19,6 @@ nav:
     - Deploy Infrastructure using Bicep: aca/06-aca-iac-bicep/iac-bicep.md
     - Deploy Infrastructure using Bicep via GitHub Actions: aca/06-aca-iac-bicep/ci-cd-git-action.md
     - Deploy infrastructure using Azure Devops Pipeline: aca/06-aca-iac-bicep/ci-cd-azdo.md
-  - About The Authors: aca/11-about-the-authors/index.md
   - Contributing:
     - Contribution Guide: aca/12-contributing/1-contribution-guide.md
     - Submit An Issue or Suggestion: aca/12-contributing/2-Submit-issue-suggestion.md
