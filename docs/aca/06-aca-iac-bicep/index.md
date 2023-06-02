@@ -2,7 +2,7 @@
 canonical_url: https://bitoftech.net/2022/09/16/use-bicep-to-deploy-dapr-microservices-apps-to-azure-container-apps-part-10/
 ---
 
-# Module 10 - Deployment Via Bicep and DevOps
+# Module 6 - Deployment Via Bicep and DevOps
 
 Throughout the various modules, we have utilized various Azure CLI commands to provision different resources. While this approach is suitable for this workshop, in a production environment, you will likely require a more automated process to deploy the same resources. In this module, we will be working on defining the proper process to automate the infrastructure provisioning by creating the scripts/templates to provision the resources. This process is known as IaC (Infrastructure as Code).
 
@@ -19,7 +19,7 @@ ARM templates are files that define the infrastructure and configuration for you
 
 Within Azure there are two ways to create IaC. We can either use the [JSON ARM templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview) or [Bicep](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview?tabs=bicep) (domain-specific language). As a project grows and the number of components and dependencies increases, working with JSON ARM templates in real-world scenarios can become increasingly complex and difficult to manage and maintain. Bicep provides a more user-friendly and straightforward experience when compared to ARM templates, resulting in increased productivity. However, it's worth noting that Bicep code is eventually compiled into ARM templates through a process called "transpilation."
 
-![aca-arm-bicep](../../assets/images/10-aca-iac-bicep/aca-bicep-l.jpg)
+![aca-arm-bicep](../../assets/images/6-aca-iac-bicep/aca-bicep-l.jpg)
 
 !!! tip
     For those interested in learning more about Bicep, it is recommended to visit the Microsoft Learn website [Fundamentals of Bicep](https://docs.microsoft.com/en-us/training/paths/fundamentals-bicep/).

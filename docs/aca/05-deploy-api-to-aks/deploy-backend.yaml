@@ -21,8 +21,20 @@ spec:
         - containerPort: 80
         env:
         - name: ASPNETCORE_ENVIRONMENT
-          value: "Production"
+          value: "Development"
         resources:
           limits:
             cpu: 100m
             memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: tasksapi
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
