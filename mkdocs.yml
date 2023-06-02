@@ -15,10 +15,10 @@ nav:
   - Module 4 - Deploy Fontend APP to App Service: aca/04-deploy-api-to-app/index.md
   - Module 5 - Deploy Backend API to AKS: aca/05-deploy-api-to-aks/index.md
   - Module 6 - Deployment Via Bicep and DevOps:
-    - aca/6-aca-iac-bicep/index.md
-    - Deploy Infrastructure using Bicep: aca/6-aca-iac-bicep/iac-bicep.md
-    - Deploy Infrastructure using Bicep via GitHub Actions: aca/6-aca-iac-bicep/ci-cd-git-action.md
-    - Deploy infrastructure using Azure Devops Pipeline: aca/6-aca-iac-bicep/ci-cd-azdo.md
+    - aca/06-aca-iac-bicep/index.md
+    - Deploy Infrastructure using Bicep: aca/06-aca-iac-bicep/iac-bicep.md
+    - Deploy Infrastructure using Bicep via GitHub Actions: aca/06-aca-iac-bicep/ci-cd-git-action.md
+    - Deploy infrastructure using Azure Devops Pipeline: aca/06-aca-iac-bicep/ci-cd-azdo.md
   - About The Authors: aca/11-about-the-authors/index.md
   - Contributing:
     - Contribution Guide: aca/12-contributing/1-contribution-guide.md
