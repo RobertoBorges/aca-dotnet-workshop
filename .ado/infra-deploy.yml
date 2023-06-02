@@ -101,7 +101,7 @@ stages:
             templateLocation: 'Linked artifact'
             csmFile: 'bicep/main.bicep'
             csmParametersFile: 'bicep/main.parameters.json'
-            overrideParameters: '-containerRegistryName -backendApiServiceImage $(REGISTRY)/$(BACKEND_API_IMAGE_NAME):latest -frontendWebAppServiceImage $(REGISTRY)/$(FRONTEND_APP_IMAGE_NAME):latest'
+            overrideParameters: '-backendApiServiceImage $(REGISTRY)/$(BACKEND_API_IMAGE_NAME):latest -frontendWebAppServiceImage $(REGISTRY)/$(FRONTEND_APP_IMAGE_NAME):latest'
             deploymentMode: 'Incremental'
             deploymentName: 'azdo-deploy-$(Build.BuildId)'
 
