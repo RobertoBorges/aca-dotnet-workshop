@@ -29,14 +29,14 @@ param logAnalyticsWorkspaceName string = '${prefix}log-${uniqueString(resourceGr
 param applicationInsightName string = '${prefix}appi-${uniqueString(resourceGroup().id)}${suffix}'
 
 @description('The name of the service for the backend api service. The name is use as Dapr App ID.')
-param backendApiServiceName string = 'tasksmanager-backend-api'
+param backendApiServiceName string = 'backend-api-${uniqueString(resourceGroup().id)}${suffix}'
 
 @description('The name of the service for the frontend web app service. The name is use as Dapr App ID.')
-param frontendWebAppServiceName string = 'tasksmanager-frontend-webapp'
+param frontendWebAppServiceName string = 'frontend-webapp-${uniqueString(resourceGroup().id)}${suffix}'
 
 // Container Registry & Images
 @description('The name of the container registry.')
-param containerRegistryName string = '${prefix}acr-${uniqueString(resourceGroup().id)}${suffix}'
+param containerRegistryName string
 
 @description('The image for the backend api service.')
 param backendApiServiceImage string = 'ghcr.io/robertoborges/tasksmanager-backend-api:sha-f736c52'
@@ -95,6 +95,21 @@ module containerApps 'modules/container-apps.bicep' = {
   }
 }
 
+module aci 'modules/container-instance.bicep' = {
+  name: 'aci-backend-${uniqueString(resourceGroup().id)}'
+  params: {
+    aciName: 'aci-backend-${uniqueString(resourceGroup().id)}'
+    location: location
+    tags: tags
+    backendApiServiceImage: backendApiServiceImage
+    containerRegistryUserAssignedIdentityId: containerApps.outputs.containerRegistryUserAssignedIdentityId
+    containerRegistryName: containerRegistryName
+    }
+  dependsOn: [
+    containerApps
+  ]
+}
+
 module webapp 'modules/web-apps.bicep' = {
   name: 'frontend-${uniqueString(resourceGroup().id)}'
   params: {
@@ -103,6 +118,7 @@ module webapp 'modules/web-apps.bicep' = {
     frontendWebAppServiceName: frontendWebAppServiceName
     frontendWebAppServiceImage: frontendWebAppServiceImage
     containerRegistryUserAssignedIdentityId: containerApps.outputs.containerRegistryUserAssignedIdentityId
+    backendACIFQDN: aci.outputs.backendACIFQDN
     sku: 'S1'
   }
   dependsOn: [
@@ -125,6 +141,7 @@ module kubernetes 'modules/kubernetes-services.bicep' = {
     containerApps
   ]
 }
+
 // ------------------
 // OUTPUTS
 // ------------------

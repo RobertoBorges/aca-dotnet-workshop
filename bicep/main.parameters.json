@@ -3,7 +3,16 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "prefix": {
-      "value": "rbb"
+      "value": "<your initials>"
+    },
+    "containerRegistryName": {
+      "value": "<CONTAINER_REGISTRY_NAME>"
+    },
+    "backendApiServiceImage": {
+      "value": "<CONTAINER_REGISTRY_NAME>.azurecr.io/tasksmanager/tasksmanager-backend-api:latest"
+    },
+    "frontendWebAppServiceImage": {
+      "value": "<CONTAINER_REGISTRY_NAME>.azurecr.io/tasksmanager/tasksmanager-frontend-webapp:latest"
     }
   }
 }

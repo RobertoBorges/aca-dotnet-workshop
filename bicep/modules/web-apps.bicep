@@ -22,6 +22,9 @@ param location string = resourceGroup().location
 @description('The resource ID of the user assigned managed identity for the container registry to be able to pull images from it.')
 param containerRegistryUserAssignedIdentityId string
 
+@description('The FQDN of the backend API service.')
+param backendACIFQDN string
+
 var appServicePlanName = toLower('AppServicePlan-${frontendWebAppServiceName}')
 
 var webSiteName = toLower('wapp-${frontendWebAppServiceName}')
@@ -59,10 +62,12 @@ resource appService 'Microsoft.Web/sites@2020-06-01' = {
     serverFarmId: appServicePlan.id
     siteConfig: {
       linuxFxVersion: linuxFxVersion
+      acrUseManagedIdentityCreds: true
+      acrUserManagedIdentityID: containerRegistryUserAssignedIdentityId
       appSettings: [
         {
           name: 'BackendApiConfig__BaseUrlExternalHttp'
-          value: 'https://testbackendApiServiceName}/'
+          value: 'http://${backendACIFQDN}/'
         }
       ]
     }
