@@ -58,7 +58,7 @@ stages:
         - task: AzureCLI@2
           displayName: Create resource group
           inputs:
-            azureSubscription: $(AZURE_SUBSCRIPTION)
+            azureSubscription: MyAzureServiceConnection
             scriptType: 'bash'
             scriptLocation: 'inlineScript'
             inlineScript: |
@@ -75,7 +75,7 @@ stages:
         - task: AzureResourceManagerTemplateDeployment@3
           inputs:
             deploymentScope: 'Resource Group'
-            azureResourceManagerConnection: $(AZURE_SUBSCRIPTION)
+            azureResourceManagerConnection: MyAzureServiceConnection
             action: 'Create Or Update Resource Group'
             resourceGroupName: $(RESOURCE_GROUP)
             location: $(LOCATION)
@@ -96,7 +96,7 @@ stages:
         - task: AzureResourceManagerTemplateDeployment@3
           inputs:
             deploymentScope: 'Resource Group'
-            azureResourceManagerConnection: $(AZURE_SUBSCRIPTION)
+            azureResourceManagerConnection: MyAzureServiceConnection
             action: 'Create Or Update Resource Group'
             resourceGroupName: $(RESOURCE_GROUP)
             location: '$(LOCATION)'
@@ -118,7 +118,7 @@ stages:
           - task: AzureCLI@2
             displayName: Create Azure Container Registry if needed
             inputs:
-              azureSubscription: $(AZURE_SUBSCRIPTION)
+              azureSubscription: MyAzureServiceConnection
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
               inlineScript: |
@@ -144,7 +144,7 @@ stages:
           - task: AzureCLI@2
             displayName: Import images from GitHub Container Registry
             inputs:
-              azureSubscription: $(AZURE_SUBSCRIPTION)
+              azureSubscription: MyAzureServiceConnection
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
               inlineScript: |
@@ -166,7 +166,7 @@ stages:
         - task: AzureResourceManagerTemplateDeployment@3
           inputs:
             deploymentScope: 'Resource Group'
-            azureResourceManagerConnection: $(AZURE_SUBSCRIPTION)
+            azureResourceManagerConnection: MyAzureServiceConnection
             action: 'Create Or Update Resource Group'
             resourceGroupName: $(RESOURCE_GROUP)
             location: $(LOCATION)
@@ -188,6 +188,6 @@ stages:
         - task: AzureResourceManagerTemplateDeployment@3
           inputs:
             deploymentScope: 'Resource Group'
-            azureResourceManagerConnection: $(AZURE_SUBSCRIPTION)
+            azureResourceManagerConnection: MyAzureServiceConnection
             action: 'DeleteRG'
             resourceGroupName: $(RESOURCE_GROUP)
