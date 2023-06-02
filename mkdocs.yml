@@ -1,6 +1,6 @@
-site_name: Azure Container Apps - Workshop
-site_description: Azure Container Apps - Workshop
-site_author: Microsoft
+site_name: Azure Container Services - Workshop
+site_description: Azure Container Services - Workshop
+site_author: Roberto Borges
 nav:
   - Homepage: index.markdown
   - Workshop Introduction:
@@ -105,13 +105,13 @@ extra:
     version: 1.9.0
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/Azure/aca-dotnet-workshop
+      link: https://robertoborges.github.io/azure-containers-dotnet-workshop/
   analytics:
     provider: google
-    property: G-ZB635RP321
+    property: G-Y20Y9XBPN4
 
 extra_css:
   - assets/stylesheets/extra.css
 
-repo_url: https://github.com/Azure/aca-dotnet-workshop
+repo_url: https://robertoborges.github.io/azure-containers-dotnet-workshop/
 edit_uri: edit/main/docs

@@ -50,7 +50,7 @@ kubectl get service frontend-service
 
 ```
 
-If the previous command doesn't return the IP address of the frontend web app, you can use the following wait and try again after 10 seconds.
+If the previous command doesn't return the external IP address of the frontend web app, you can wait and try again after 10 seconds.
 
 !!! success
     Browse the web app using the IP you got from the previous command, use the following email: tjoudeh@bitoftech.net , you should be able to see the same results and access the backend API endpoints from the Web App but now we are using Kubernetes services.

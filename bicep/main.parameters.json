@@ -8,65 +8,20 @@
     "suffix": {
         "value": ""
     },
-    "tags": {
-        "value": {}
-    },
-    "backendProcessorServiceName": {
-      "value": "tasksmanager-backend-processor"
-    },
     "backendApiServiceName": {
       "value": "tasksmanager-backend-api"
     },
     "frontendWebAppServiceName": {
       "value": "tasksmanager-frontend-webapp"
     },
-    "serviceBusTopicName": {
-      "value": "tasksavedtopic"
-    },
-    "serviceBusTopicAuthorizationRuleName": {
-      "value": "tasksavedtopic-manage-policy"
-    },
-    "cosmosDbDatabaseName": {
-      "value": "tasksmanagerdb"
-    },
-    "cosmosDbCollectionName": {
-      "value": "taskscollection"
-    },
-    "sendGridKeySecretValue": {
-      "value": ""
-    },
-    "sendGridEmailFrom": {
-      "value": "<SEND_GRID_FROM_EMAIL>"
-    },
-    "sendGridEmailFromName": {
-      "value": "Tasks Tracker Notification"
-    },
-    "externalTasksQueueName": {
-      "value": "external-tasks-queue"
-    },
-    "externalTasksContainerBlobName": {
-      "value": "externaltasksblob"
-    },
-    "externalStorageKeySecretName": {
-      "value": "external-azure-storage-key"
-    },
-    "scheduledJobCron": {
-      "value": "5 0 * * *"
-    },
-    "secretStoreComponentName": {
-      "value": "secretstoreakv"
-    },
     "containerRegistryName": {
       "value": "<CONTAINER_REGISTRY_NAME>"
     },
-    "backendProcessorServiceImage": {
-      "value": "<CONTAINER_REGISTRY_NAME>.azurecr.io/tasksmanager/tasksmanager-backend-processor:latest"
-    },
     "backendApiServiceImage": {
-      "value": "<CONTAINER_REGISTRY_NAME>.azurecr.io/tasksmanager/tasksmanager-backend-api:latest"
+      "value": "ghcr.io/robertoborges/tasksmanager-backend-api:sha-f736c52"
     },
     "frontendWebAppServiceImage": {
-      "value": "<CONTAINER_REGISTRY_NAME>.azurecr.io/tasksmanager/tasksmanager-frontend-webapp:latest"
+      "value": "ghcr.io/robertoborges/tasksmanager-frontend-webapp:sha-ac70171"
     },
     "frontendWebAppPortNumber": {
       "value": 80
@@ -74,8 +29,11 @@
     "backendApiPortNumber": {
       "value": 80
     },
-    "backendProcessorPortNumber": {
-      "value": 80
+    "tags": {
+      "value": {
+        "environment": "dev",
+        "project": "tasksmanager"
+      }
     }
   }
 }

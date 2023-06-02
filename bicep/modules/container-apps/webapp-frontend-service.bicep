@@ -16,6 +16,9 @@ param containerAppsEnvironmentId string
 @description('The name of the service for the frontend web app service. The name is use as Dapr App ID.')
 param frontendWebAppServiceName string
 
+@description('The name of the service for the backend api service. The name is use as Dapr App ID.')
+param backendApiServiceName string
+
 // Container Registry & Image
 @description('The name of the container registry.')
 param containerRegistryName string
@@ -89,6 +92,10 @@ resource frontendWebAppService 'Microsoft.App/containerApps@2022-06-01-preview' 
             {
               name: 'ApplicationInsights__InstrumentationKey'
               secretRef: 'appinsights-key'
+            }
+            {
+              name: 'BackendApiConfig__BaseUrlExternalHttp'
+              value: 'https://${backendApiServiceName}/'
             }
           ]
         }

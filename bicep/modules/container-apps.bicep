@@ -17,9 +17,6 @@ param containerAppsEnvironmentName string
 @description('The name of the service for the backend api service. The name is use as Dapr App ID.')
 param backendApiServiceName string
 
-@description('The name of the service for the backend processor service. The name is use as Dapr App ID and as the name of service bus topic subscription.')
-param backendProcessorServiceName string
-
 @description('The name of the service for the frontend web app service. The name is use as Dapr App ID.')
 param frontendWebAppServiceName string
 
@@ -29,9 +26,6 @@ param containerRegistryName string
 
 @description('The image for the backend api service.')
 param backendApiServiceImage string
-
-@description('The image for the backend processor service.')
-param backendProcessorServiceImage string
 
 @description('The image for the frontend web app service.')
 param frontendWebAppServiceImage string
@@ -45,9 +39,6 @@ param frontendWebAppPortNumber int
 
 @description('The target and dapr port for the backend api service.')
 param backendApiPortNumber int
-
-@description('The dapr port for the backend processor service.')
-param backendProcessorPortNumber int
 
 // ------------------
 // VARIABLES
@@ -100,7 +91,7 @@ module frontendWebAppService 'container-apps/webapp-frontend-service.bicep' = {
     frontendWebAppServiceImage: frontendWebAppServiceImage
     appInsightsInstrumentationKey: applicationInsights.properties.InstrumentationKey
     frontendWebAppPortNumber: frontendWebAppPortNumber
-    
+    backendApiServiceName: backendApiService.outputs.backendApiServiceFQDN
   }
 }
 
@@ -119,27 +110,9 @@ module backendApiService 'container-apps/webapi-backend-service.bicep' = {
   }
 }
 
-module backendProcessorService 'container-apps/processor-backend-service.bicep' = {
-  name: 'backendProcessorService-${uniqueString(resourceGroup().id)}'
-  params: {
-    backendProcessorServiceName: backendProcessorServiceName
-    location: location
-    tags: tags
-    containerAppsEnvironmentId: containerAppsEnvironment.id
-    containerRegistryName: containerRegistryName
-    containerRegistryUserAssignedIdentityId: containerRegistryUserAssignedIdentity.id
-    backendProcessorServiceImage: backendProcessorServiceImage
-    appInsightsInstrumentationKey: applicationInsights.properties.InstrumentationKey
-    backendProcessorPortNumber: backendProcessorPortNumber
-  }
-}
-
 // ------------------
 // OUTPUTS
 // ------------------
-
-@description('The name of the container app for the backend processor service.')
-output backendProcessorServiceContainerAppName string = backendProcessorService.outputs.backendProcessorServiceContainerAppName
 
 @description('The name of the container app for the backend api service.')
 output backendApiServiceContainerAppName string = backendApiService.outputs.backendApiServiceContainerAppName
@@ -152,3 +125,6 @@ output frontendWebAppServiceFQDN string = frontendWebAppService.outputs.frontend
 
 @description('The FQDN of the backend web app')
 output backendApiServiceFQDN string  = backendApiService.outputs.backendApiServiceFQDN
+
+@description('User Managed Identity ID')
+output containerRegistryUserAssignedIdentityId string = containerRegistryUserAssignedIdentity.id
