@@ -25,8 +25,6 @@ variables:
     value: azure/tasksmanager-backend-api
   - name: FRONTEND_APP_IMAGE_NAME
     value: azure/tasksmanager-frontend-webapp
-  - name: BACKEND_PROCESSOR_IMAGE_NAME
-    value: azure/tasksmanager-backend-processor
   - group: 'AcaApp'
 
 
@@ -103,7 +101,7 @@ stages:
             templateLocation: 'Linked artifact'
             csmFile: 'bicep/main.bicep'
             csmParametersFile: 'bicep/main.parameters.json'
-            overrideParameters: '-containerRegistryName -backendProcessorServiceImage $(REGISTRY)/$(BACKEND_PROCESSOR_IMAGE_NAME):latest -backendApiServiceImage $(REGISTRY)/$(BACKEND_API_IMAGE_NAME):latest -frontendWebAppServiceImage $(REGISTRY)/$(FRONTEND_APP_IMAGE_NAME):latest'
+            overrideParameters: '-containerRegistryName -backendApiServiceImage $(REGISTRY)/$(BACKEND_API_IMAGE_NAME):latest -frontendWebAppServiceImage $(REGISTRY)/$(FRONTEND_APP_IMAGE_NAME):latest'
             deploymentMode: 'Incremental'
             deploymentName: 'azdo-deploy-$(Build.BuildId)'
 
@@ -150,7 +148,6 @@ stages:
               inlineScript: |
                 set -e
                 echo "Import images from GitHub Container Registry"
-                az acr import --name $(CONTAINER_REGISTRY_NAME) --source $(REGISTRY)/$(BACKEND_PROCESSOR_IMAGE_NAME):latest --image tasksmanager/tasksmanager-backend-processor --force
                 az acr import --name $(CONTAINER_REGISTRY_NAME) --source $(REGISTRY)/$(BACKEND_API_IMAGE_NAME):latest --image tasksmanager/tasksmanager-backend-api --force
                 az acr import --name $(CONTAINER_REGISTRY_NAME) --source $(REGISTRY)/$(FRONTEND_APP_IMAGE_NAME):latest --image tasksmanager/tasksmanager-frontend-webapp --force
       
@@ -173,7 +170,7 @@ stages:
             templateLocation: 'Linked artifact'
             csmFile: 'bicep/main.bicep'
             csmParametersFile: 'bicep/main.parameters.json'
-            overrideParameters: '-containerRegistryName $(CONTAINER_REGISTRY_NAME) -backendProcessorServiceImage $(CONTAINER_REGISTRY_NAME).azurecr.io/tasksmanager/tasksmanager-backend-processor:latest -backendApiServiceImage $(CONTAINER_REGISTRY_NAME).azurecr.io/tasksmanager/tasksmanager-backend-api:latest -frontendWebAppServiceImage $(CONTAINER_REGISTRY_NAME).azurecr.io/tasksmanager/tasksmanager-frontend-webapp:latest'
+            overrideParameters: '-containerRegistryName $(CONTAINER_REGISTRY_NAME) -backendApiServiceImage $(CONTAINER_REGISTRY_NAME).azurecr.io/tasksmanager/tasksmanager-backend-api:latest -frontendWebAppServiceImage $(CONTAINER_REGISTRY_NAME).azurecr.io/tasksmanager/tasksmanager-frontend-webapp:latest'
             deploymentMode: 'Incremental'
             deploymentName: 'azdo-deploy-$(Build.BuildId)'
 
