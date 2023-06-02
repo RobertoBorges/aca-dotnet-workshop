@@ -26,7 +26,6 @@ env:
   REGISTRY: ghcr.io
   BACKEND_API_IMAGE_NAME: azure/tasksmanager-backend-api
   FRONTEND_APP_IMAGE_NAME: azure/tasksmanager-frontend-webapp
-  BACKEND_PROCESSOR_IMAGE_NAME: azure/tasksmanager-backend-processor
 
 jobs:
   # This job is used for linting the bicep files
@@ -95,7 +94,7 @@ jobs:
         with:
           resourceGroupName: ${{ vars.RESOURCE_GROUP }}
           template: ./bicep/main.bicep
-          parameters: ./bicep/main.parameters.json containerRegistryName=${{ vars.CONTAINER_REGISTRY_NAME }} backendProcessorServiceImage=${{ env.REGISTRY }}/${{ env.BACKEND_PROCESSOR_IMAGE_NAME }} backendApiServiceImage=${{ env.REGISTRY }}/${{ env.BACKEND_API_IMAGE_NAME }} frontendWebAppServiceImage=${{ env.REGISTRY }}/${{ env.FRONTEND_APP_IMAGE_NAME }}
+          parameters: ./bicep/main.parameters.json containerRegistryName=${{ vars.CONTAINER_REGISTRY_NAME }} backendApiServiceImage=${{ env.REGISTRY }}/${{ env.BACKEND_API_IMAGE_NAME }} frontendWebAppServiceImage=${{ env.REGISTRY }}/${{ env.FRONTEND_APP_IMAGE_NAME }}
           additionalArguments: "--what-if --rollback-on-error --what-if-exclude-change-types  Ignore"
 
   # This job creates ACR and imports images from GitHub Container Registry if configured. If ACR already exists but not in same resource group, it will fail the workflow
@@ -133,7 +132,6 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az acr import --name ${{ vars.CONTAINER_REGISTRY_NAME }} --source ${{ env.REGISTRY }}/${{ env.BACKEND_PROCESSOR_IMAGE_NAME }}:latest --image tasksmanager/tasksmanager-backend-processor --force
             az acr import --name ${{ vars.CONTAINER_REGISTRY_NAME }} --source ${{ env.REGISTRY }}/${{ env.BACKEND_API_IMAGE_NAME }}:latest --image tasksmanager/tasksmanager-backend-api --force
             az acr import --name ${{ vars.CONTAINER_REGISTRY_NAME }} --source ${{ env.REGISTRY }}/${{ env.FRONTEND_APP_IMAGE_NAME }}:latest --image tasksmanager/tasksmanager-frontend-webapp --force
 
@@ -184,7 +182,7 @@ jobs:
           resourceGroupName: ${{ vars.RESOURCE_GROUP }}
           region: ${{ vars.LOCATION }}
           template: ./bicep/main.bicep
-          parameters: ./bicep/main.parameters.json containerRegistryName= backendProcessorServiceImage=${{ env.REGISTRY }}/${{ env.BACKEND_PROCESSOR_IMAGE_NAME }}:latest backendApiServiceImage=${{ env.REGISTRY }}/${{ env.BACKEND_API_IMAGE_NAME }}:latest frontendWebAppServiceImage=${{ env.REGISTRY }}/${{ env.FRONTEND_APP_IMAGE_NAME }}:latest
+          parameters: ./bicep/main.parameters.json containerRegistryName=${{ env.REGISTRY }} backendApiServiceImage=${{ env.REGISTRY }}/${{ env.BACKEND_API_IMAGE_NAME }}:latest frontendWebAppServiceImage=${{ env.REGISTRY }}/${{ env.FRONTEND_APP_IMAGE_NAME }}:latest
           failOnStdErr: false
 
   # This job deletes the resource group created by the workflow and can only be triggered by the workflow dispatch event.

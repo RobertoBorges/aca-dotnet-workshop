@@ -3,37 +3,16 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "prefix": {
-      "value": ""
-    },
-    "suffix": {
-        "value": ""
-    },
-    "backendApiServiceName": {
-      "value": "tasksmanager-backend-api"
-    },
-    "frontendWebAppServiceName": {
-      "value": "tasksmanager-frontend-webapp"
+      "value": "<your initials>"
     },
     "containerRegistryName": {
       "value": "<CONTAINER_REGISTRY_NAME>"
     },
     "backendApiServiceImage": {
-      "value": "ghcr.io/robertoborges/tasksmanager-backend-api:sha-f736c52"
+      "value": "<CONTAINER_REGISTRY_NAME>.azurecr.io/tasksmanager/tasksmanager-backend-api:latest"
     },
     "frontendWebAppServiceImage": {
-      "value": "ghcr.io/robertoborges/tasksmanager-frontend-webapp:sha-ac70171"
-    },
-    "frontendWebAppPortNumber": {
-      "value": 80
-    },
-    "backendApiPortNumber": {
-      "value": 80
-    },
-    "tags": {
-      "value": {
-        "environment": "dev",
-        "project": "tasksmanager"
-      }
+      "value": "<CONTAINER_REGISTRY_NAME>.azurecr.io/tasksmanager/tasksmanager-frontend-webapp:latest"
     }
   }
 }
